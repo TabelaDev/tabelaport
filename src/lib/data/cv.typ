@@ -53,7 +53,8 @@
   ),
 ).at(lang-input)
 
-#let jsonPath(feature) = "./" + feature + "/" + lang-input + ".json"
+#let locale-dir = if lang-input == "pt" { "pt-br" } else { lang-input }
+#let jsonPath(feature) = "./" + feature + "/" + locale-dir + ".json"
 
 #let personalJson = json(jsonPath("personal"))
 #let contactsJson = json(jsonPath("contacts"))

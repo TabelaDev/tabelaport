@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { Nav, ThemeToggle } from 'tabelawebui';
+	import { Nav, ThemeToggle } from '@tabeladev/tabelawebui';
 	import LanguageController from './LanguageController.svelte';
 	import { sections } from '$lib/data/sections';
 	import { personalNameSlug } from '$lib/cv';

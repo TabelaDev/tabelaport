@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"lucide-svelte": "^0.562.0",
-		"tabelawebui": "^0.6.0",
+		"@tabeladev/tabelawebui": "^0.13.0",
 		"wrangler": "^4.105.0"
 	}
 }

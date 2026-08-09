@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { RuleCard } from 'tabelawebui';
+	import { RuleCard } from '@tabeladev/tabelawebui';
 	import type { Component } from 'svelte';
 	import { Lightbulb, Code, Presentation, Puzzle } from 'lucide-svelte';
 

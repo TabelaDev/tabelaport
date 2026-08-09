@@ -23,7 +23,7 @@
 
 <main class="grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2">
 	{#each items as item (item.title)}
-		<RuleCard icon={icons[item.icon] ?? Lightbulb as unknown as Icon} title={item.title}>
+		<RuleCard icon={icons[item.icon] ?? (Lightbulb as unknown as Icon)} title={item.title}>
 			{item.text}
 		</RuleCard>
 	{/each}

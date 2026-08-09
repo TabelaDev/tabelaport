@@ -12,7 +12,9 @@ import { resolve } from 'node:path';
 const repoDir = process.cwd();
 const [mode, profileArg = 'dev', langArg = 'en'] = process.argv.slice(2);
 
-const personal = JSON.parse(readFileSync(resolve(repoDir, 'src/lib/data/personal/en.json'), 'utf8'));
+const personal = JSON.parse(
+	readFileSync(resolve(repoDir, 'src/lib/data/personal/en.json'), 'utf8')
+);
 const nameSlug = personal.name.replace(/\s+/g, '_');
 
 const profiles = ['dev', 'tutor', 'all'];

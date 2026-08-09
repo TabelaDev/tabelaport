@@ -1,0 +1,14 @@
+[
+	{
+		"title": "Software Developer",
+		"subtitle": "Some Company",
+		"start": "2025-01",
+		"location": "Remote",
+		"tags": ["dev", "web"],
+		"details": [
+			"Develop and maintain web applications for internal tooling",
+			"Collaborate with a small team on a shared codebase"
+		],
+		"skills": ["Svelte", "TypeScript", "Git"]
+	}
+]

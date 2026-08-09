@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+	<title id="title">Your photo</title>
+	<desc id="desc">Placeholder — replace src/lib/assets/photo.svg with your own picture</desc>
+	<rect width="800" height="1000" fill="#e8e6e3" />
+	<g stroke="#8b8b8b" stroke-width="3" fill="none" opacity="0.6">
+		<circle cx="400" cy="360" r="140" />
+		<path d="M160 920a240 240 0 0 1 480 0" />
+	</g>
+	<text x="400" y="600" text-anchor="middle" font-family="monospace" font-size="28" fill="#8b8b8b">
+		replace me: src/lib/assets/photo.svg
+	</text>
+</svg>

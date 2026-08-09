@@ -1,0 +1,14 @@
+[
+	{
+		"title": "Desenvolvedor de Software",
+		"subtitle": "Alguma Empresa",
+		"start": "2025-01",
+		"location": "Remoto",
+		"tags": ["dev", "web"],
+		"details": [
+			"Desenvolvo e mantenho aplicações web para ferramentas internas",
+			"Colaboro com um time pequeno em um código compartilhado"
+		],
+		"skills": ["Svelte", "TypeScript", "Git"]
+	}
+]

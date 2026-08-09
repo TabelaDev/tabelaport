@@ -1,0 +1,20 @@
+[
+	{
+		"name": "Email",
+		"url": "mailto:you@example.com",
+		"display": "you@example.com",
+		"icon": "mail"
+	},
+	{
+		"name": "GitHub",
+		"url": "https://github.com/yourname",
+		"display": "github.com/yourname",
+		"icon": "github"
+	},
+	{
+		"name": "LinkedIn",
+		"url": "https://linkedin.com/in/yourname",
+		"display": "linkedin.com/in/yourname",
+		"icon": "linkedin"
+	}
+]

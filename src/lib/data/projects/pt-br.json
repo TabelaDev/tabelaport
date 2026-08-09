@@ -1,0 +1,29 @@
+[
+	{
+		"title": "Meu Primeiro Projeto Open Source",
+		"subtitle": "Projeto Pessoal",
+		"start": "2026-01",
+		"featured": true,
+		"location": "Remoto",
+		"tags": ["dev", "web"],
+		"link": "https://github.com/yourname/project",
+		"details": [
+			"Construí uma ferramenta simples que resolvia um problema recorrente",
+			"Abri o código e aprendi muito com o feedback"
+		],
+		"skills": ["Svelte", "TypeScript", "Tailwind CSS"]
+	},
+	{
+		"title": "Projeto de Hackathon",
+		"subtitle": "Projeto em Equipe",
+		"start": "2025-06",
+		"featured": false,
+		"location": "Remoto",
+		"tags": ["dev", "web"],
+		"details": [
+			"Entreguei um protótipo funcional em 48 horas com uma equipe de três",
+			"Apresentei para os jurados e demonstrei o fluxo principal ao vivo"
+		],
+		"skills": ["Python", "FastAPI", "SQLite"]
+	}
+]

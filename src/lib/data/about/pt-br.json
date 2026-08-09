@@ -1,0 +1,22 @@
+[
+	{
+		"icon": "lightbulb",
+		"title": "Curiosidade",
+		"text": "Gosto de entender como as coisas funcionam por baixo do capô. Se uma ferramenta faz algo surpreendente, vou ler o código-fonte dela."
+	},
+	{
+		"icon": "code",
+		"title": "Construir",
+		"text": "Transformar uma ideia em algo real é o que me mantém em movimento. Ferramentas pequenas, projetos grandes — curto o ciclo inteiro."
+	},
+	{
+		"icon": "presentation",
+		"title": "Compartilhar",
+		"text": "Escrever e ensinar é como eu organizo o que aprendo. Uma boa explicação é um presente para o seu eu do futuro."
+	},
+	{
+		"icon": "puzzle",
+		"title": "Desafios",
+		"text": "Problemas difíceis são os divertidos. Prefiro passar a noite debugando do que a manhã em trabalho mecânico."
+	}
+]

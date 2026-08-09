@@ -1,0 +1,18 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"home_greeting": "Olá, sou\num Desenvolvedor de Software",
+	"home_navigation_hint": "Use a barra de navegação acima para saber mais sobre mim e explorar meus projetos, experiências e educação",
+	"home_contact_me": "Entre em contato",
+	"home_download_cv": "ou baixe meu cv",
+	"home_download_cv_button": "Baixar CV",
+	"home_photo_note": "Sou eu",
+	"home_greetings_label": "saudacoes()",
+	"home_photo_label": "foto()",
+	"nav_about": ".sobre()",
+	"nav_education": ".educacao()",
+	"nav_achievements": ".conquistas()",
+	"nav_projects": ".projetos()",
+	"nav_experiences": ".experiencias()",
+	"nav_teaching": ".ensino()",
+	"experience_now": "Agora"
+}

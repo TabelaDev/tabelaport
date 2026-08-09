@@ -1,0 +1,22 @@
+[
+	{
+		"icon": "lightbulb",
+		"title": "Curiosity",
+		"text": "I like understanding how things work under the hood. If a tool does something surprising, I go read its source."
+	},
+	{
+		"icon": "code",
+		"title": "Building",
+		"text": "Turning an idea into something real is what keeps me going. Small tools, big projects — I enjoy the whole loop."
+	},
+	{
+		"icon": "presentation",
+		"title": "Sharing",
+		"text": "Writing things down and teaching others is how I make sense of what I learn. A good explanation is a gift to your future self."
+	},
+	{
+		"icon": "puzzle",
+		"title": "Challenges",
+		"text": "Hard problems are the fun ones. I'd rather spend an evening debugging than a morning doing busywork."
+	}
+]

@@ -27,11 +27,13 @@ const datasets = {
 	teaching: { en: teachingEnUs, 'pt-br': teachingPtBr }
 } as const;
 
+// Call this from a $derived, never from module scope. getLocale() has to run
+// per render: on the server there is no request context while a module is
+// being evaluated, so a module-level constant froze at the base locale and
+// then disagreed with the client, which resolves the real one — a hydration
+// mismatch, and a language switch that never updated the data.
 export function getLocaleData<T>(feature: string): T {
 	const locale = getLocale();
 	const entries = (datasets as Record<string, Record<string, unknown>>)[feature];
 	return (entries?.[locale] ?? entries?.['en']) as T;
 }
-
-export const personal = JSON.parse(JSON.stringify(getLocaleData('personal')));
-export const contacts = JSON.parse(JSON.stringify(getLocaleData('contacts')));

@@ -2,10 +2,14 @@
 	import { TabCard, Divider, Eyebrow, BracketLink } from '@tabeladev/tabelawebui';
 	import photo from '$lib/assets/photo.svg';
 	import { Download, Github, Linkedin, Mail, Phone } from 'lucide-svelte';
-	import { contacts } from '$lib/data/paraglide-adapter';
+	import { getLocaleData } from '$lib/data/paraglide-adapter';
 	import { cvFilename, personalName } from '$lib/cv';
 	import type { Contact } from '$lib/interfaces/contact';
 	import * as m from '$lib/paraglide/messages';
+
+	// Derived, not a module constant: the list has to follow the active locale,
+	// the same way the section route already reads its data.
+	const contacts = $derived(getLocaleData<Contact[]>('contacts'));
 </script>
 
 <div class="flex flex-col gap-8 lg:grid lg:grid-cols-5">

@@ -9,6 +9,8 @@ design system (Catppuccin Latte/Mocha, "reading someone's source file" aesthetic
 multi-language (PT-BR/EN) via [Paraglide](https://inlang.com/), and deployable to
 Cloudflare Pages in minutes.
 
+**English** · [Português](README.pt-BR.md)
+
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)](LICENSE)
 [![Built with SvelteKit](https://img.shields.io/badge/built%20with-SvelteKit-FF3E00?style=flat-square&logo=svelte&logoColor=white)](https://svelte.dev/)
 [![Powered by TabelaWebUI](https://img.shields.io/badge/theme-TabelaWebUI-d6b4f7?style=flat-square)](https://github.com/TabelaDev/tabelawebui)

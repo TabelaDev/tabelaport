@@ -22,7 +22,7 @@
 		"cv:watch": "node scripts/cv.mjs watch dev pt",
 		"cv:vaga": "bash scripts/cv-vaga.sh",
 		"prepare-deploy": "bun run cv && bun run format && bun run build",
-		"deploy": "bunx wrangler pages deploy"
+		"deploy": "bunx wrangler deploy"
 	},
 	"devDependencies": {
 		"@inlang/paraglide-js": "^2.20.2",

@@ -113,13 +113,13 @@ if [ -f "$PORTFOLIO_DIR/src/lib/assets/photo.jpg" ] && [ ! -f "$PORTFOLIO_DIR/sr
 fi
 
 # package.json: herda scripts/deps do template, mantém name + version da instância
-node - "$TPL_DIR/package.json" "$PORT_NAME" "$PORT_VERSION" <<'EOF'
+node - "$TPL_DIR/package.json" "$PORTFOLIO_DIR/package.json" "$PORT_NAME" "$PORT_VERSION" <<'EOF'
 const fs = require('node:fs');
-const [file, name, version] = process.argv.slice(2);
+const [file, out, name, version] = process.argv.slice(2);
 const src = JSON.parse(fs.readFileSync(file, 'utf8'));
 src.name = name;
 src.version = version;
-fs.writeFileSync('package.json', JSON.stringify(src, null, '\t') + '\n');
+fs.writeFileSync(out, JSON.stringify(src, null, '\t') + '\n');
 EOF
 
 # wrangler.jsonc: herda a config do template, mantém o nome do projeto

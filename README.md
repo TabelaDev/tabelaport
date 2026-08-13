@@ -7,7 +7,7 @@ entry and text lives in JSON files under `src/lib/data/`, so you fill in your
 own info and ship. Powered by the [TabelaWebUI](https://github.com/TabelaDev/tabelawebui)
 design system (Catppuccin Latte/Mocha, "reading someone's source file" aesthetic),
 multi-language (PT-BR/EN) via [Paraglide](https://inlang.com/), and deployable to
-Cloudflare Pages in minutes.
+Cloudflare Workers in minutes.
 
 **English** · [Português](README.pt-BR.md)
 
@@ -29,7 +29,7 @@ Cloudflare Pages in minutes.
   for each language/profile, named after your `personal.json` name
 - **i18n** — PT-BR and EN out of the box (see `messages/` and `project.inlang/`)
 - **Dark/light theme** — from TabelaWebUI
-- **Zero backend** — static site, deploys to Cloudflare Pages
+- **Zero backend** — static site, deploys to Cloudflare Workers
 
 ## Quick start
 
@@ -50,8 +50,8 @@ bun run cv
 
 # 5. develop / build / deploy
 bun run dev          # local dev
-bun run build        # production build (Cloudflare Pages)
-bunx wrangler pages deploy
+bun run build        # production build (Cloudflare Workers)
+bun run deploy       # deploy to Cloudflare Workers
 ```
 
 > Tip: `bun run prepare-deploy` does `cv + format + build` in one go.
@@ -112,7 +112,7 @@ in `project.inlang/settings.json`. Content translations live in the data folders
 ## Stack
 
 SvelteKit 5 · Svelte 5 · Tailwind CSS 4 · TabelaWebUI · Paraglide JS · Typst ·
-Cloudflare Pages
+Cloudflare Workers
 
 ## License
 

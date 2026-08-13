@@ -13,7 +13,7 @@ Abra uma [issue](../../issues/new/choose) usando o template apropriado.
 
 1. Fork o repositório.
 2. Crie uma branch a partir de `main`.
-3. Rode `bun run check`, `bun run lint`, `bun run test` e `bun run build`
+3. Rode `bun run check`, `bun run lint` e `bun run build`
    localmente antes de abrir o PR.
 4. Abra o PR usando o template — descreva o quê e o porquê da mudança.
 

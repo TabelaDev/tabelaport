@@ -4,15 +4,32 @@
 #let profile-input = sys.inputs.at("profile", default: "dev")
 #let tags-input = sys.inputs.at("tags", default: "")
 #let summary-input = sys.inputs.at("summary", default: "")
+#let exclude-tags-input = sys.inputs.at("exclude-tags", default: "")
+#let exclude-ids-input = sys.inputs.at("exclude-ids", default: "")
 
-#let selectedTags = if tags-input == "" { () } else { tags-input.split(",").map(tag => tag.trim()) }
+#let parseList(input) = if input == "" { () } else { input.split(",").map(v => v.trim()) }
+
+#let selectedTags = parseList(tags-input)
 #let hasTagFilter = selectedTags.len() > 0
+#let excludeTags = parseList(exclude-tags-input)
+#let excludeIds = parseList(exclude-ids-input)
+
 #let matchesTags(item) = {
   if not hasTagFilter { true }
   else {
     item.at("tags", default: ()).any(tag => selectedTags.contains(tag))
   }
 }
+
+#let notExcluded(item) = {
+  let itemTags = item.at("tags", default: ())
+  let itemId = item.at("id", default: "")
+  let hasExcludeTag = excludeTags.len() > 0 and itemTags.any(tag => excludeTags.contains(tag))
+  let hasExcludeId = excludeIds.len() > 0 and excludeIds.contains(itemId)
+  not hasExcludeTag and not hasExcludeId
+}
+
+#let shouldInclude(item) = matchesTags(item) and notExcluded(item)
 
 #let i18n = (
   en: (
@@ -71,7 +88,7 @@
 }
 
 #let jobsJson = if hasTagFilter {
-  (devJobsJson + tutorJobsJson).filter(matchesTags)
+  (devJobsJson + tutorJobsJson).filter(shouldInclude)
 } else if profile-input == "tutor" {
   tutorJobsJson
 } else if profile-input == "all" {
@@ -84,12 +101,12 @@
 #let sortKey(item) = item.at("start", default: item.at("date", default: ""))
 #let mostRecentFirst(arr) = arr.sorted(key: sortKey).rev()
 
-#let educationsJson = mostRecentFirst(educationsJson.filter(matchesTags))
+#let educationsJson = mostRecentFirst(educationsJson.filter(shouldInclude))
 #let jobsJson = mostRecentFirst(jobsJson)
-#let achievementsJson = mostRecentFirst(achievementsJson.filter(matchesTags))
+#let achievementsJson = mostRecentFirst(achievementsJson.filter(shouldInclude))
 #let projectsJson = mostRecentFirst(projectsJson)
 #let featuredProjectsJson = projectsJson.filter(p => p.at("featured", default: false))
-#let shownProjectsJson = if hasTagFilter { projectsJson.filter(matchesTags) } else { featuredProjectsJson }
+#let shownProjectsJson = if hasTagFilter { projectsJson.filter(shouldInclude) } else { featuredProjectsJson.filter(notExcluded) }
 
 #let displayUrl(url) = url.replace(regex("^https?://"), "").trim("/")
 

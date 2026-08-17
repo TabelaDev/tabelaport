@@ -3,6 +3,7 @@
 		"title": "Vencedor de Hackathon",
 		"subtitle": "Algum Hackathon (2024)",
 		"date": "2024",
+		"id": "hackathon-winner-2024",
 		"tags": ["dev"],
 		"details": ["Venci o primeiro lugar com uma equipe de três em um hackathon de 48 horas"],
 		"skills": ["Resolução de Problemas", "Trabalho em Equipe"]

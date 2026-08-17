@@ -4,6 +4,7 @@
 		"subtitle": "Alguma Empresa",
 		"start": "2025-01",
 		"location": "Remoto",
+		"id": "dev-empresa-x",
 		"tags": ["dev", "web"],
 		"details": [
 			"Desenvolvo e mantenho aplicações web para ferramentas internas",

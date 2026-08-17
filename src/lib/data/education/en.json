@@ -5,6 +5,7 @@
 		"start": "2023-03",
 		"end": "2027-12",
 		"location": "Remote",
+		"id": "cc-universidade-x",
 		"tags": ["computacao"],
 		"details": ["Course focused on software engineering and algorithms"],
 		"skills": ["Algorithms", "Python", "C++"]

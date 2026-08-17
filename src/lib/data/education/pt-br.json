@@ -5,6 +5,7 @@
 		"start": "2023-03",
 		"end": "2027-12",
 		"location": "Remoto",
+		"id": "cc-universidade-x",
 		"tags": ["computacao"],
 		"details": ["Curso focado em engenharia de software e algoritmos"],
 		"skills": ["Algoritmos", "Python", "C++"]

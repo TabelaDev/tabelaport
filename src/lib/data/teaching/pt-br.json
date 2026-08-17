@@ -4,6 +4,7 @@
 		"subtitle": "Autônomo",
 		"start": "2024-03",
 		"location": "Remoto",
+		"id": "prof-programacao",
 		"tags": ["ensino"],
 		"details": ["Aulas particulares de fundamentos de programação para iniciantes"],
 		"skills": ["Comunicação", "Pedagogia", "Python"]

@@ -5,6 +5,20 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-08-17
+
+### Added
+
+- `cv.typ`: exclude items by tags (`exclude-tags`) and unique IDs (`exclude-ids`).
+  New `shouldInclude(item)` combines include-filter (existing `tags`) with
+  exclusion predicates, applied across education, experience, achievements, and
+  projects sections.
+- `cv-vaga.sh`: optional `--exclude-tags` and `--exclude-ids` parameters,
+  passed through to Typst as inputs.
+- All data JSONs (`experiences`, `projects`, `education`, `achievements`,
+  `teaching`): added `id` field to every item for deterministic identification.
+- `Experience` interface: added optional `id` and `tags` fields.
+
 ## [0.2.0] - 2026-08-13
 
 ### Added

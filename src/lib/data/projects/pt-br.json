@@ -5,6 +5,7 @@
 		"start": "2026-01",
 		"featured": true,
 		"location": "Remoto",
+		"id": "meu-primeiro-projeto",
 		"tags": ["dev", "web"],
 		"link": "https://github.com/yourname/project",
 		"details": [
@@ -19,6 +20,7 @@
 		"start": "2025-06",
 		"featured": false,
 		"location": "Remoto",
+		"id": "hackathon-2025",
 		"tags": ["dev", "web"],
 		"details": [
 			"Entreguei um protótipo funcional em 48 horas com uma equipe de três",

@@ -3,20 +3,22 @@ set -euo pipefail
 
 # Gera um CV filtrado por indexadores (tags) para static/.
 # Uso:
-#   ./scripts/cv-vaga.sh <lang> <tags> <slug> [<summary>] [--exclude-tags X] [--exclude-ids X]
+#   ./scripts/cv-vaga.sh <lang> <tags> <slug> [<summary>] [--exclude-tags X] [--exclude-ids X] [--only-ids X]
 # Exemplo:
 #   ./scripts/cv-vaga.sh pt "ia,ml,matematica,engenharia,python" icml ic-ml
 #   ./scripts/cv-vaga.sh pt "dev,python,ia,web" nubank nubank --exclude-ids tabelarpgdk
+#   ./scripts/cv-vaga.sh pt "" nubank nubank --only-ids tabelainvest,tabelafin,tabelahub
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LANG_INPUT="${1:?lang requerida (pt|en)}"
-TAGS_INPUT="${2:?tags requeridas (separadas por virgula)}"
+TAGS_INPUT="${2:-}"
 SLUG="${3:?slug requerido}"
 shift 3
 
 SUMMARY_INPUT=""
 EXCLUDE_TAGS=""
 EXCLUDE_IDS=""
+ONLY_IDS=""
 
 while [ $# -gt 0 ]; do
 	case "$1" in
@@ -26,6 +28,10 @@ while [ $# -gt 0 ]; do
 			;;
 		--exclude-ids)
 			EXCLUDE_IDS="${2:?valor requerido para --exclude-ids}"
+			shift 2
+			;;
+		--only-ids)
+			ONLY_IDS="${2:?valor requerido para --only-ids}"
 			shift 2
 			;;
 		*)
@@ -52,6 +58,9 @@ if [ -n "$EXCLUDE_TAGS" ]; then
 fi
 if [ -n "$EXCLUDE_IDS" ]; then
 	ARGS+=(--input "exclude-ids=${EXCLUDE_IDS}")
+fi
+if [ -n "$ONLY_IDS" ]; then
+	ARGS+=(--input "only-ids=${ONLY_IDS}")
 fi
 
 typst compile "$REPO_DIR/src/lib/data/cv.typ" "$REPO_DIR/static/${OUT}.pdf" "${ARGS[@]}"

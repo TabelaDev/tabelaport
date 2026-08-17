@@ -4,18 +4,11 @@
 #let profile-input = sys.inputs.at("profile", default: "dev")
 #let tags-input = sys.inputs.at("tags", default: "")
 #let summary-input = sys.inputs.at("summary", default: "")
-#let exclude-tags-input = sys.inputs.at("exclude-tags", default: "")
-#let exclude-ids-input = sys.inputs.at("exclude-ids", default: "")
-#let only-ids-input = sys.inputs.at("only-ids", default: "")
 
 #let parseList(input) = if input == "" { () } else { input.split(",").map(v => v.trim()) }
 
 #let selectedTags = parseList(tags-input)
 #let hasTagFilter = selectedTags.len() > 0
-#let excludeTags = parseList(exclude-tags-input)
-#let excludeIds = parseList(exclude-ids-input)
-#let onlyIds = parseList(only-ids-input)
-#let hasOnlyIds = onlyIds.len() > 0
 
 #let matchesTags(item) = {
   if not hasTagFilter { true }
@@ -24,21 +17,30 @@
   }
 }
 
-#let notExcluded(item) = {
-  let itemTags = item.at("tags", default: ())
-  let itemId = item.at("id", default: "")
-  let hasExcludeTag = excludeTags.len() > 0 and itemTags.any(tag => excludeTags.contains(tag))
-  let hasExcludeId = excludeIds.len() > 0 and excludeIds.contains(itemId)
-  not hasExcludeTag and not hasExcludeId
-}
+#let sectionFilter(section) = {
+  let onlyKey = "only-ids-" + section
+  let excludeKey = "exclude-ids-" + section
+  let onlyList = parseList(sys.inputs.at(onlyKey, default: ""))
+  let excludeList = parseList(sys.inputs.at(excludeKey, default: ""))
+  let hasOnly = onlyList.len() > 0
 
-#let shouldInclude(item) = {
-  if hasOnlyIds {
-    onlyIds.contains(item.at("id", default: ""))
-  } else {
-    matchesTags(item) and notExcluded(item)
+  (item) => {
+    let itemId = item.at("id", default: "")
+    if hasOnly {
+      onlyList.contains(itemId)
+    } else if excludeList.len() > 0 {
+      not excludeList.contains(itemId)
+    } else {
+      matchesTags(item)
+    }
   }
 }
+
+#let filterProjects = sectionFilter("projects")
+#let filterEducation = sectionFilter("education")
+#let filterExperiences = sectionFilter("experiences")
+#let filterAchievements = sectionFilter("achievements")
+#let filterTeaching = sectionFilter("teaching")
 
 #let i18n = (
   en: (
@@ -96,26 +98,26 @@
   personalJson.summary
 }
 
-#let jobsJson = if hasTagFilter or hasOnlyIds {
-  (devJobsJson + tutorJobsJson).filter(shouldInclude)
-} else if profile-input == "tutor" {
-  tutorJobsJson
+#let filteredDevJobs = devJobsJson.filter(filterExperiences)
+#let filteredTutorJobs = tutorJobsJson.filter(filterTeaching)
+#let jobsJson = if profile-input == "tutor" {
+  filteredTutorJobs
 } else if profile-input == "all" {
-  devJobsJson + tutorJobsJson
+  filteredDevJobs + filteredTutorJobs
 } else {
-  devJobsJson
+  filteredDevJobs
 }
-#let includeProjects = hasTagFilter or hasOnlyIds or profile-input != "tutor"
+#let includeProjects = profile-input != "tutor"
 
 #let sortKey(item) = item.at("start", default: item.at("date", default: ""))
 #let mostRecentFirst(arr) = arr.sorted(key: sortKey).rev()
 
-#let educationsJson = mostRecentFirst(educationsJson.filter(shouldInclude))
+#let educationsJson = mostRecentFirst(educationsJson.filter(filterEducation))
 #let jobsJson = mostRecentFirst(jobsJson)
-#let achievementsJson = mostRecentFirst(achievementsJson.filter(shouldInclude))
+#let achievementsJson = mostRecentFirst(achievementsJson.filter(filterAchievements))
 #let projectsJson = mostRecentFirst(projectsJson)
 #let featuredProjectsJson = projectsJson.filter(p => p.at("featured", default: false))
-#let shownProjectsJson = if hasTagFilter or hasOnlyIds { projectsJson.filter(shouldInclude) } else { featuredProjectsJson.filter(notExcluded) }
+#let shownProjectsJson = featuredProjectsJson.filter(filterProjects)
 
 #let displayUrl(url) = url.replace(regex("^https?://"), "").trim("/")
 

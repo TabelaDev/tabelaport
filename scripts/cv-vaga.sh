@@ -3,11 +3,19 @@ set -euo pipefail
 
 # Gera um CV filtrado por indexadores (tags) para static/.
 # Uso:
-#   ./scripts/cv-vaga.sh <lang> <tags> <slug> [<summary>] [--exclude-tags X] [--exclude-ids X] [--only-ids X]
-# Exemplo:
-#   ./scripts/cv-vaga.sh pt "ia,ml,matematica,engenharia,python" icml ic-ml
-#   ./scripts/cv-vaga.sh pt "dev,python,ia,web" nubank nubank --exclude-ids tabelarpgdk
-#   ./scripts/cv-vaga.sh pt "" nubank nubank --only-ids tabelainvest,tabelafin,tabelahub
+#   ./scripts/cv-vaga.sh <lang> <tags> <slug> [<summary>] [flags...]
+#
+# Flags globais:
+#   --exclude-tags X              exclui itens com qualquer tag de X
+#
+# Flags por seção (edu, exp, ach, proj, teaching):
+#   --only-ids-{section} X       mostra SOMENTE os IDs de X na seção
+#   --exclude-ids-{section} X    exclui os IDs de X da seção
+#
+# Exemplos:
+#   ./scripts/cv-vaga.sh pt "ia,ml,python" icml ic-ml
+#   ./scripts/cv-vaga.sh pt "" nubank nubank --only-ids-projects tabelainvest,tabelafin,tabelahub
+#   ./scripts/cv-vaga.sh pt "dev,python" nubank nubank --exclude-ids-projects tabelarpgdk
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LANG_INPUT="${1:?lang requerida (pt|en)}"
@@ -17,8 +25,7 @@ shift 3
 
 SUMMARY_INPUT=""
 EXCLUDE_TAGS=""
-EXCLUDE_IDS=""
-ONLY_IDS=""
+SECTION_FLAGS=()
 
 while [ $# -gt 0 ]; do
 	case "$1" in
@@ -26,12 +33,10 @@ while [ $# -gt 0 ]; do
 			EXCLUDE_TAGS="${2:?valor requerido para --exclude-tags}"
 			shift 2
 			;;
-		--exclude-ids)
-			EXCLUDE_IDS="${2:?valor requerido para --exclude-ids}"
-			shift 2
-			;;
-		--only-ids)
-			ONLY_IDS="${2:?valor requerido para --only-ids}"
+		--only-ids-*|--exclude-ids-*)
+			# Converte --flag-name pra key=value pro Typst
+			SECTION_KEY="${1#--}"
+			SECTION_FLAGS+=(--input "${SECTION_KEY}=${2:?valor requerido para $1}")
 			shift 2
 			;;
 		*)
@@ -56,12 +61,7 @@ fi
 if [ -n "$EXCLUDE_TAGS" ]; then
 	ARGS+=(--input "exclude-tags=${EXCLUDE_TAGS}")
 fi
-if [ -n "$EXCLUDE_IDS" ]; then
-	ARGS+=(--input "exclude-ids=${EXCLUDE_IDS}")
-fi
-if [ -n "$ONLY_IDS" ]; then
-	ARGS+=(--input "only-ids=${ONLY_IDS}")
-fi
+ARGS+=("${SECTION_FLAGS[@]}")
 
 typst compile "$REPO_DIR/src/lib/data/cv.typ" "$REPO_DIR/static/${OUT}.pdf" "${ARGS[@]}"
 echo "Gerado:  $REPO_DIR/static/${OUT}.pdf"

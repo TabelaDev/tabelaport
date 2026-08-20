@@ -1,27 +1,100 @@
 name: CI
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  pull_request:
+    branches: [main]
 
 jobs:
-    lint-and-check:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v7
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
 
-            - uses: oven-sh/setup-bun@v2
+      - name: Check for app skeleton
+        id: skeleton
+        run: |
+          if [ -f package.json ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
 
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
+      - name: Setup Bun
+        if: steps.skeleton.outputs.exists == 'true'
+        uses: oven-sh/setup-bun@v2
 
-            - name: Lint
-              run: bun run lint
+      - name: Install dependencies
+        if: steps.skeleton.outputs.exists == 'true'
+        run: bun install --frozen-lockfile
 
-            - name: Type check
-              run: bun run check
+      - name: Lint
+        if: steps.skeleton.outputs.exists == 'true'
+        run: bun run lint
 
-            - name: Build
-              run: bun run build
+      - name: Check
+        if: steps.skeleton.outputs.exists == 'true'
+        run: bun run check
+
+      - name: Check for test script
+        id: testscript
+        if: steps.skeleton.outputs.exists == 'true'
+        run: |
+          if jq -e '.scripts.test' package.json > /dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Test
+        if: steps.testscript.outputs.exists == 'true'
+        run: bun run test
+
+      - name: Build
+        if: steps.skeleton.outputs.exists == 'true'
+        run: bun run build
+
+  deploy:
+    needs: lint-and-test
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Deploy
+        run: bun run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  release:
+    needs: deploy
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Package browser extension
+        id: ext
+        run: |
+          if [ -d extension ]; then
+            cd extension
+            zip -r "../${{ github.event.repository.name }}-extensao-${GITHUB_REF_NAME}.zip" . -x '*.DS_Store'
+            echo "packaged=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: ${{ github.event.repository.name }}-extensao-*.zip

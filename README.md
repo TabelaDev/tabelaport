@@ -11,14 +11,16 @@ Cloudflare Workers in minutes.
 
 **English** · [Português](README.pt-BR.md)
 
+[![SvelteKit](https://img.shields.io/badge/SvelteKit-Svelte-ff3e00?style=flat-square&logo=svelte&logoColor=white)](https://kit.svelte.dev)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange?style=flat-square&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)](LICENSE)
-[![Built with SvelteKit](https://img.shields.io/badge/built%20with-SvelteKit-FF3E00?style=flat-square&logo=svelte&logoColor=white)](https://svelte.dev/)
-[![Powered by TabelaWebUI](https://img.shields.io/badge/theme-TabelaWebUI-d6b4f7?style=flat-square)](https://github.com/TabelaDev/tabelawebui)
-[![Built with Bun](https://img.shields.io/badge/built%20with-Bun-fbf0df?style=flat-square&logo=bun&logoColor=black)](https://bun.sh/)
+[![Built with tabelawebui](https://img.shields.io/badge/theme-tabelawebui-d6b4f7?style=flat-square)](https://github.com/TabelaDev/tabelawebui)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/ianptkcs)
 
 </div>
+
+---
 
 ## Features
 
